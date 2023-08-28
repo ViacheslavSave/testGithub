@@ -1,7 +1,7 @@
 const sum = 1500;
 const currencyOfFunds = "EURO";
 const targetСurrency = "руб";
-//
+
 function converter(sum, currencyOfFunds, targetСurrency) {
 	if (!(checkAvailabilityOfCurrency(currencyOfFunds) && checkAvailabilityOfCurrency(targetСurrency))) {
 		return null;
@@ -21,7 +21,7 @@ function converter(sum, currencyOfFunds, targetСurrency) {
 	}
 	return ` ${currencyInRubles.toFixed(2)} ${targetСurrency}`;
 }
-//
+
 function price(euroPrice, usdPrice, currency) {
 	switch (currency) {
 		case "$":
@@ -30,7 +30,7 @@ function price(euroPrice, usdPrice, currency) {
 			return euroPrice;
 	}
 }
-//
+
 function checkAvailabilityOfCurrency(currency) {
 	switch (currency) {
 		case "руб":
