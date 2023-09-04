@@ -3,13 +3,11 @@ sort(arr);
 
 function sort(arr) {
 	for (let i = 0; i < arr.length; i++) {
-		let j = i;
-		for (j; j < arr.length; j++) {
+		for (let j = i; j < arr.length; j++) {
 			if (arr[j] > arr[i]) {
-				let val = arr[i];
-				arr.splice(i, 1, arr[j]);
-				arr.splice(j, 1, val);
+				[arr[i], arr[j]] = [arr[j], arr[i]];
 			}
 		}
 	}
+	return arr;
 }

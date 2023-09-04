@@ -9,14 +9,15 @@ function converter(sum, currencyOfFunds, targetСurrency) {
 	const euroPrice = 100;
 	const usdPrice = 70;
 	let currencyInRubles;
+	let rate;
 	if (currencyOfFunds !== "руб") {
-		let rate = price(euroPrice, usdPrice, currencyOfFunds);
+		rate = price(euroPrice, usdPrice, currencyOfFunds);
 		currencyInRubles = sum * rate;
 	} else {
 		currencyInRubles = sum;
 	}
 	if (targetСurrency !== "руб") {
-		let rate = price(euroPrice, usdPrice, targetСurrency);
+		rate = price(euroPrice, usdPrice, targetСurrency);
 		return `${(currencyInRubles / rate).toFixed(2)} ${targetСurrency}`;
 	}
 	return ` ${currencyInRubles.toFixed(2)} ${targetСurrency}`;
