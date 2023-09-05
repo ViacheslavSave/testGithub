@@ -1,22 +1,12 @@
-const password = "sferghytr";
-function crypto(password) {
-	const half = (password.length / 2).toFixed();
-	password = password.split("");
-	password.push(password.splice(half, 1)[0]);
-	password.unshift(password.splice(half, 1)[0]);
-	password.push(password.splice(half, 1)[0]);
-	password.unshift(password.splice(half, 1)[0]);
-	password.push(password.splice(half, 1)[0]);
-	return password.join("");
+const crypto = (pass) => {
+  const passArr = [...pass];
+  const middle = Math.floor(passArr.length/2);
+  const firstPart = passArr.slice(0, middle).reverse();
+  const secondPart = passArr.slice(middle);
+  const secondPartLength = secondPart.length;
+  [secondPart[0], secondPart[secondPartLength - 1]] = [secondPart[secondPartLength - 1], secondPart[0]];
+  return [...firstPart, ...secondPart].join('');
 }
-
-function check(hashPassword, str) {
-	const half = (hashPassword.length / 2).toFixed();
-	hashPassword = hashPassword.split("");
-	hashPassword.splice(half, 0, hashPassword.pop());
-	hashPassword.splice(half, 0, hashPassword.shift());
-	hashPassword.splice(half, 0, hashPassword.pop());
-	hashPassword.splice(half, 0, hashPassword.shift());
-	hashPassword.splice(half, 0, hashPassword.pop());
-	return hashPassword.join("") === str;
+const check = (crypt, pass) => {
+  return crypto(crypt) === pass; 
 }
