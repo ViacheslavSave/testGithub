@@ -1,27 +1,33 @@
-const arrStr = ["10-02-2022", "тест", "11/12/2023", "00/13/2022", "41/12/2023", "1/12/2023", "01/0002/2023"];
-
 function checkDate(arrStr) {
-	const variants = ["/", "-"];
 	const res = [];
 	for (const strDate of arrStr) {
-		for (const variant of variants) {
-			const dateArr = strDate.split(variant);
-			if (dateArr.length === 3) {
-				const [day, manth, year] = dateArr;
-				if (
-					(day.length === 1 || day.length === 2) &&
-					day > 0 &&
-					day <= 31 &&
-					manth.length === 2 &&
-					manth > 0 &&
-					manth <= 12 &&
-					year.length === 4 &&
-					year > 1900 &&
-					year <= 2023
-				) {
-					res.push(dateArr.join("-"));
-					break;
-				}
+		for (const variant of ["/", "-"]) {
+			if (!(strDate[2] === variant && strDate[5] === variant)) {
+				continue;
+			}
+
+			const arrDate = strDate.split(variant);
+			if (arrDate.length !== 3 || arrDate[2] == 0 || arrDate.some((el) => isNaN(Number(el)))) {
+				continue;
+			}
+
+			if (variant === "/") {
+				[arrDate[0], arrDate[1]] = [arrDate[1], arrDate[0]];
+			}
+
+			const [day, manth, year] = arrDate.map((elem) => Number(elem));
+			let lastDay = 30;
+
+			if (!(manth > 0 && manth <= 12)) {
+				continue;
+			} else if (manth === 2) {
+				lastDay = !(year % 400) || (year % 100 && !(year % 4)) ? 29 : 28;
+			} else if ((manth <= 7 && manth % 2) || (manth > 7 && !(manth % 2))) {
+				lastDay = 31;
+			}
+
+			if (day > 0 && day <= lastDay) {
+				res.push(arrDate.join("-"));
 			}
 		}
 	}
