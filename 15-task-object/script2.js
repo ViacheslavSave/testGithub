@@ -1,37 +1,41 @@
 const ToDoList = {
 	tasks: [],
-	findId: function (id) {
+	findIndexById: function (id) {
 		return this.tasks.findIndex((obj) => obj.id === id);
 	},
+
 	result: function (id, callback) {
-		const index = this.findId(id);
+		const index = this.findIndexById(id);
 		if (index !== -1) {
 			callback(index);
 			return true;
 		}
 		return false;
 	},
-	addTask: function (id, title, priority) {
-		const index = this.findId(id);
+
+	addTask: function (obj) {
+		const index = this.findIndexById(obj.id);
 		if (index === -1) {
-			this.tasks.push({ id, title, priority });
+			this.tasks.push(obj);
 			return true;
 		}
 		return false;
 	},
+
+	editTask: function (obj) {
+		const editTaskCallback = (index) => (this.tasks[index] = { ...this.tasks[index], ...obj });
+		return this.result(obj.id, editTaskCallback);
+	},
+
 	delTask: function (id) {
 		const delTaskCallback = (index) => this.tasks.splice(index, 1);
 		return this.result(id, delTaskCallback);
 	},
-	editTitle: function (id, title) {
-		const editTitleCallback = (index) => (this.tasks[index].title = title);
-		return this.result(id, editTitleCallback);
-	},
-	editPriority: function (id, priority) {
-		const editPriorityCallback = (index) => (this.tasks[index].priority = priority);
-		return this.result(id, editPriorityCallback);
-	},
-	sortTasksByPriorityImpFirst: function () {
-		return this.tasks.sort((a, b) => b.priority - a.priority);
+
+	sortTasks: function (obj) {
+		return this.tasks.sort((a, b) => {
+			obj.sortBy === "increasing" && ([a, b] = [b, a]);
+			return b[obj.property] - a[obj.property];
+		});
 	},
 };

@@ -1,12 +1,7 @@
 function fromObjectToString(obj) {
 	const res = [];
-	for (const key in obj) {
-		res.push(`${key}=${obj[key]}`);
+	for (const [key,value] of Object.entries(obj)) {
+		res.push(`${key}=${value}`);
 	}
 	return res.join("&");
 }
-
-const obj = {
-	search: "Вася",
-	take: 10,
-};
