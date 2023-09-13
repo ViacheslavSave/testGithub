@@ -13,10 +13,10 @@ const ToDoList = {
 		return false;
 	},
 
-	addTask: function (obj) {
-		const index = this.findIndexById(obj.id);
+	addTask: function (newTaskObj) {
+		const index = this.findIndexById(newTaskObj.id);
 		if (index === -1) {
-			this.tasks.push(obj);
+			this.tasks.push(newTaskObj);
 			return true;
 		}
 		return false;
@@ -31,39 +31,8 @@ const ToDoList = {
 		const delTaskCallback = (index) => this.tasks.splice(index, 1);
 		return this.result(id, delTaskCallback);
 	},
-	//
-	//
-	//        Какой вариант лучше ?
-	//
-	//_____________________________________________________1
-	//
-	sortTasks: function (property, sortBy) {
-		return this.tasks.sort((a, b) => {
-			sortBy === "increasing" && ([a, b] = [b, a]); //___________  проверка условия на каждой итерации и замена переменных если true
-			return b[property] - a[property];
-		});
-	},
-	//
-	//______________________________________________________2
-	//
-	//     одна проверка но практически дублированный код,
-	//
-	sortTasks__2: function (property, sortBy) {
-		switch (sortBy) {
-			case "increasing":
-				return this.tasks.sort((a, b) => b[property] - a[property]);
-			default:
-				return this.tasks.sort((a, b) => a[property] - b[property]);
-		}
-	},
-	//
-	//______________________________________________________3
-	//
-	//    или так
-	//
-	sortTasks__3: function (property, sortBy) {
-		return sortBy === "increasing"
-			? this.tasks.sort((a, b) => b[property] - a[property])
-			: this.tasks.sort((a, b) => a[property] - b[property]);
+	sortTasks(prop, param = "asc") {
+		const index = param === "asc" ? 1 : -1; 
+		return this.tasks.sort((a, b) => (a[prop] - b[prop]) * index);
 	},
 };
