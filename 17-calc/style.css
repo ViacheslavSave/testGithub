@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+}
+
+html,
+body,
+.wrapper {
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.res {
+  border: 1px solid #000;
+  width: 177px;
+  height: 20px;
+}
